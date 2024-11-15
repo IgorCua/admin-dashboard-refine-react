@@ -41,6 +41,7 @@ import { Home,
   Login, 
   Register
 } from './pages';
+import { Layout } from "./components/layout";
 
 const API_URL = "https://api.nestjs-query.refine.dev/graphql";
 const WS_URL = "wss://api.nestjs-query.refine.dev/graphql";
@@ -92,13 +93,24 @@ function App() {
                 }}
               >
                 <Routes>
-                  <Route index element={<WelcomePage/>}/>
                   <Route index element={<Home/>}/>
                   <Route path={'/register'} element={<Register/>}/>
                   <Route path={'/login'} element={<Login/>}/>
                   <Route path={'/forgot-password'} element={<ForgotPassword/>}/>
+                  <Route
+                    element={<Authenticated
+                      key={'authenticated-layout'}
+                      fallback={<CatchAllNavigate to="/login"/>}
+                    >
+                      <Layout>
+                        <Outlet/>
+                      </Layout>
+                    </Authenticated>}
+                  >
+                    <Route index element={<WelcomePage/>}/>
+                  </Route>
                 </Routes>
-
+                    
                 <RefineKbar />
                 <UnsavedChangesNotifier />
                 <DocumentTitleHandler />
