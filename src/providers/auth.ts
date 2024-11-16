@@ -17,17 +17,13 @@ export const authProvider: AuthProvider = {
         try {
             const { data } = await dataProvider.custom({
                 url: API_URL,
+                // url: '/login',
                 method: "post",
-                headers: {},
+                headers: {
+                },
                 meta: {
                     variables: { email },
-                    rawQuery: `
-                    mutation Login($email: String!) {
-                        login(loginInput: {email: $email}) {
-                            accessToken,
-                        }
-                    }
-                `,
+                    rawQuery: "mutation Login($email: String!) {login(loginInput: {email: $email}) {accessToken,}}",
                 },
             });
 
