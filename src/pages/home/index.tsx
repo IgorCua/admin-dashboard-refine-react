@@ -3,6 +3,18 @@ import { Col, Row } from "antd";
 
 export const Home = () => {
     return <div>
+        <Row gutter={[32,32]}>
+            <Col xs={24} sm={24} xl={8}>
+                DashboardtotalCountCard
+            </Col>
+            <Col xs={24} sm={24} xl={8}>
+                DashboardtotalCountCard
+            </Col>
+            <Col xs={24} sm={24} xl={8}>
+                DashboardtotalCountCard
+            </Col>
+        </Row>
+
         <Row
             gutter={[32,32]}
             style={{marginTop: '32px'}}
@@ -20,7 +32,7 @@ export const Home = () => {
             <Col
                 xs={24}
                 sm={24}
-                xl={8}
+                xl={16}
                 style={{
                     height: '460px'
                 }}
