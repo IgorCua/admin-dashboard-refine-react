@@ -40,7 +40,8 @@ import {
   Home,
   ForgotPassword,
   Login,
-  Register
+  Register,
+  CompanyListPage
 } from './pages';
 import { Layout } from "./components/layout";
 import { resources } from "./config/resources";
@@ -90,6 +91,7 @@ function App() {
                   }
                 >
                   <Route index element={<Home/>} />
+                  <Route path="/companies" element={<CompanyListPage/>} />
                 </Route>
               </Routes>
 
