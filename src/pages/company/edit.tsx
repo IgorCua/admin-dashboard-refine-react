@@ -24,7 +24,7 @@ export const EditPage = () => {
     });
 
     const { avatarUrl, name } = queryResult?.data?.data || {};
-    console.log(queryResult)
+    
     const {
         selectProps,
         queryResult: queryResultUsers
