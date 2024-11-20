@@ -36,7 +36,7 @@ export const Create = () => {
         meta: {
             gqlQuery: USERS_SELECT_QUERY
         }
-    })
+    });
 
     return (
         <CompanyList>
