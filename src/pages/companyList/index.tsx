@@ -14,7 +14,6 @@ import {
 } from "@refinedev/antd";
 import { getDefaultFilter, useGo } from "@refinedev/core"
 import { Input, Space, Table } from "antd";
-import { nanoid } from "nanoid";
 
 export const CompanyListPage = () => {
     const go = useGo();
@@ -75,7 +74,6 @@ export const CompanyListPage = () => {
             )}
         >
             <Table
-                key={nanoid(5)}
                 {...tableProps}
                 pagination={{
                     ...tableProps.pagination

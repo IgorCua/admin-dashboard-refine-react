@@ -41,7 +41,8 @@ import {
   ForgotPassword,
   Login,
   Register,
-  CompanyListPage
+  Create,
+  CompanyList,
 } from './pages';
 import { Layout } from "./components/layout";
 import { resources } from "./config/resources";
@@ -91,7 +92,10 @@ function App() {
                   }
                 >
                   <Route index element={<Home/>} />
-                  <Route path="/companies" element={<CompanyListPage/>} />
+                  <Route path="/companies">
+                    <Route index element={<CompanyList/>}/>
+                    <Route path="new" element={<Create/>}/>
+                  </Route>
                 </Route>
               </Routes>
 
