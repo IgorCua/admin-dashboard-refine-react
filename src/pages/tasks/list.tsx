@@ -1,4 +1,5 @@
 import { KanbanBoard, KanbanBoardContainer } from "@/components/tasks/kanban/board";
+import { ProjectCard } from "@/components/tasks/kanban/card";
 import { KanbanColumn } from "@/components/tasks/kanban/column";
 import { KanbanItem } from "@/components/tasks/kanban/item";
 import { TASK_STAGES_QUERY, TASKS_QUERY } from "@/graphql/queries";
@@ -20,7 +21,7 @@ export const List = () => {
         ],
         sorters: [
             {
-                field: 'createAt',
+                field: 'createdAt',
                 order: 'asc'
             }
         ],
@@ -61,7 +62,7 @@ export const List = () => {
         const grouped: TaskStage[] = stages.data.map((stage) => (
             {
                 ...stage,
-                tasks: tasks?.data.filter((task) => (
+                tasks: tasks.data.filter((task) => (
                     task.stageId?.toString() === stage.id
                 ))
             }
@@ -82,7 +83,7 @@ export const List = () => {
         <>
             <KanbanBoardContainer>
                 <KanbanBoard>
-                    <KanbanColumn
+                <KanbanColumn
                         id="unassigned"
                         title="unassigned"
                         count={taskStages.unassignedStage}
@@ -94,7 +95,10 @@ export const List = () => {
                                 id={task.id}
                                 data={{...task, stagedId: 'unassigned'}}
                             >
-                                {task.title}
+                                <ProjectCard
+                                    {...task}
+                                    dueDate={task.dueDate || undefined}
+                                />
                             </KanbanItem>
                         ))}
                     </KanbanColumn>
