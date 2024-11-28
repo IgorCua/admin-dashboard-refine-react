@@ -59,7 +59,7 @@ export const KanbanColumn = ({
                         >
                             {title}
                         </Text>
-                        {!!count && <Badge count={count} color='cyan'/>}
+                        {!count && <Badge count={count} color='cyan'/>}
                     </Space>
                     <Button
                         shape="circle"
