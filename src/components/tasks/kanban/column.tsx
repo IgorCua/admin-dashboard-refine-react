@@ -72,7 +72,7 @@ export const KanbanColumn = ({
             <div
                 style={{
                     flex: 1,
-                    overflowY: active ? 'unset' : 'scroll',
+                    overflowY: active ? 'unset' : 'auto',
                     border: '2px dashed transparent',
                     borderColor: isOver ? '#000040' : 'transparent',
                     borderRadius: '4px'
