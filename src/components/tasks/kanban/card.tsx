@@ -6,7 +6,7 @@ import { getDateColor } from "@/utilities"
 import { ClockCircleOutlined, DeleteOutlined, EyeOutlined, MoreOutlined } from "@ant-design/icons"
 import { Button, Card, ConfigProvider, Dropdown, MenuProps, Space, Tag, theme, Tooltip } from "antd"
 import dayjs from "dayjs"
-import { useMemo } from "react"
+import { memo, useMemo } from "react"
 
 type ProjectCardProps = {
     id: string,
@@ -20,7 +20,7 @@ type ProjectCardProps = {
     }[]
 }
 
-export const ProjectCard = (
+const ProjectCard = (
     { id, title, dueDate, users }: ProjectCardProps
 ) => {
 
@@ -142,7 +142,8 @@ export const ProjectCard = (
                             align="center"
                             style={{
                                 display: 'flex',
-                                justifyContent:'flex-end',
+                                justifyContent: 'flex-end',
+                                marginLeft: 'auto',
                                 marginRight: 0
                             }}
                         >
@@ -158,3 +159,13 @@ export const ProjectCard = (
         </ConfigProvider>
     );
 }
+
+export const ProjectCardMemo = memo(ProjectCard, (prev, next) => {
+    return (
+        prev.id === next.id &&
+        prev.title === next.title &&
+        prev.dueDate === next.dueDate &&
+        prev.users?.length === next.users?.length &&
+        prev.updatedAt === next.updatedAt
+    )
+})
