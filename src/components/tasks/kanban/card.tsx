@@ -27,8 +27,8 @@ const ProjectCard = (
 
     const { token } = theme.useToken();
 
-    const {edit} = useNavigation();
-    const {mutate} = useDelete();
+    const { edit } = useNavigation();
+    const { mutate } = useDelete();
 
     const dropdownItems = useMemo(() => {
         const dropdownItems: MenuProps['items'] = [
@@ -86,12 +86,18 @@ const ProjectCard = (
             <Card
                 size="small"
                 title={<Text ellipsis={{ tooltip: title }}>{title}</Text>}
-                onClick={() => edit}
+                onClick={() => edit('tasks', id, 'replace')}
                 extra={
                     <Dropdown
                         trigger={['click']}
                         menu={{
-                            items: dropdownItems
+                            items: dropdownItems,
+                            onPointerDown: (e) => {
+                                e.stopPropagation()
+                            },
+                            onClick: (e) => {
+                                e.domEvent.stopPropagation();
+                            }
                         }}
                         placement="bottom"
                         arrow={{pointAtCenter: true}}
