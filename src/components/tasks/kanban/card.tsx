@@ -4,6 +4,7 @@ import { TextIcon } from "@/components/text-icon"
 import { User } from "@/graphql/schema.types"
 import { getDateColor } from "@/utilities"
 import { ClockCircleOutlined, DeleteOutlined, EyeOutlined, MoreOutlined } from "@ant-design/icons"
+import { useDelete, useNavigation } from "@refinedev/core"
 import { Button, Card, ConfigProvider, Dropdown, MenuProps, Space, Tag, theme, Tooltip } from "antd"
 import dayjs from "dayjs"
 import { memo, useMemo } from "react"
@@ -26,9 +27,8 @@ const ProjectCard = (
 
     const { token } = theme.useToken();
 
-    const edit = () => {
-
-    }
+    const { edit } = useNavigation();
+    const { mutate } = useDelete();
 
     const dropdownItems = useMemo(() => {
         const dropdownItems: MenuProps['items'] = [
@@ -37,7 +37,7 @@ const ProjectCard = (
                 key: '1',
                 icon: <EyeOutlined />,
                 onClick: () => {
-                    edit()
+                    edit('tasks', id, 'replace')
                 }
             },
             {
@@ -45,7 +45,15 @@ const ProjectCard = (
                 label: 'Delete card',
                 key: '2',
                 icon: <DeleteOutlined/>,
-                onClick: () => {}
+                onClick: () => {
+                    mutate({
+                        resource: 'tasks',
+                        id,
+                        meta: {
+                            operation: 'task'
+                        }
+                    })
+                }
             }
         ]
         return dropdownItems
@@ -78,12 +86,18 @@ const ProjectCard = (
             <Card
                 size="small"
                 title={<Text ellipsis={{ tooltip: title }}>{title}</Text>}
-                onClick={() => edit}
+                onClick={() => edit('tasks', id, 'replace')}
                 extra={
                     <Dropdown
                         trigger={['click']}
                         menu={{
-                            items: dropdownItems
+                            items: dropdownItems,
+                            onPointerDown: (e) => {
+                                e.stopPropagation()
+                            },
+                            onClick: (e) => {
+                                e.domEvent.stopPropagation();
+                            }
                         }}
                         placement="bottom"
                         arrow={{pointAtCenter: true}}

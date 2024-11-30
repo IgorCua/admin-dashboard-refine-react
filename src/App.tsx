@@ -44,6 +44,8 @@ import {
 } from './pages';
 import { Layout } from "./components/layout";
 import { resources } from "./config/resources";
+import { TasksCreatePage } from "./pages/tasks/create";
+import { TasksEditPage } from "./pages/tasks/edit";
 
 const API_URL = "https://api.nestjs-query.refine.dev/graphql";
 const WS_URL = "wss://api.nestjs-query.refine.dev/graphql";
@@ -95,8 +97,13 @@ function App() {
                     <Route path="new" element={<Create/>}/>
                     <Route path="edit/:id" element={<EditPage/>}/>
                   </Route>
-                  <Route path="/tasks">
-                    <Route index element={<List/>}/>
+                  <Route path="/tasks" element={
+                    <List>
+                      <Outlet/>
+                    </List>
+                  }>
+                    <Route path="new" element={<TasksCreatePage/>}/>
+                    <Route path="edit/:id" element={<TasksEditPage/>}/>
                   </Route>
                 </Route>
               </Routes>
